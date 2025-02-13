@@ -29,18 +29,18 @@ class App extends Component {
   adicionarComentario = (evento) => {
     evento.preventDefault();
     console.log("Adicionando comentário");
-    const novoComentario = {...this.state.novoComentario, data: new Date()};
+    const novoComentario = { ...this.state.novoComentario, data: new Date() };
     this.setState({
       comentarios: [...this.state.comentarios, novoComentario],
       novoComentario: { nome: "", email: "", mensagem: "" },
     });
   };
 
-  removerComentario = comentario => {
+  removerComentario = (comentario) => {
     let lista = this.state.comentarios;
-    lista = lista.filter(c => c !== comentario)
-    this.setState({comentarios: lista})
-  }
+    lista = lista.filter((c) => c !== comentario);
+    this.setState({ comentarios: lista });
+  };
 
   digitacao = (evento) => {
     const { name, value } = evento.target;
@@ -53,23 +53,25 @@ class App extends Component {
         <h1>Meu projeto</h1>
 
         {this.state.comentarios.map((comentario, indice) => (
-          <Comentario 
-          key={indice} 
-          nome={comentario.nome} 
-          email={comentario.email} 
-          data={comentario.data}
-          onRemove={this.removerComentario.bind(this, comentario)}>
+          <Comentario
+            key={indice}
+            nome={comentario.nome}
+            email={comentario.email}
+            data={comentario.data}
+            onRemove={this.removerComentario.bind(this, comentario)}
+          >
             {comentario.mensagem}
           </Comentario>
         ))}
 
-        <form method="post" onSubmit={this.adicionarComentario}>
+        <form method="post" onSubmit={this.adicionarComentario} className="Novo-Comentario">
           <h2>Adicionar comentário</h2>
           <div>
             <input
               type="text"
               name="nome"
               placeholder="Digite seu nome"
+              required
               value={this.state.novoComentario.nome}
               onChange={this.digitacao}
             />
@@ -79,12 +81,19 @@ class App extends Component {
               type="text"
               name="email"
               placeholder="Digite seu e-mail"
+              required
               value={this.state.novoComentario.email}
               onChange={this.digitacao}
             />
           </div>
           <div>
-            <textarea name="mensagem" value={this.state.novoComentario.mensagem} rows="4" onChange={this.digitacao} />
+            <textarea
+              name="mensagem"
+              required
+              value={this.state.novoComentario.mensagem}
+              rows="4"
+              onChange={this.digitacao}
+            />
           </div>
           <button type="submit">Salvar</button>
         </form>
