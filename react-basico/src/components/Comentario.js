@@ -1,17 +1,6 @@
 import React from "react";
 import "./Comentario.css";
 
-// Esse componente faz o retorno direto pois a função é mais simples está entre parenteses.
-const ComentarioDireto = () => (
-  <>
-    <div className="Comentario">
-      <div>João:</div>
-      <div>Olá eu sou um componente.</div>
-    </div>
-  </>
-);
-
-// Este componente precisa de uma função de retorno pois é mais complexa e está entre chaves.
 const Comentario = (props) => {
   return (
     <>
@@ -20,9 +9,10 @@ const Comentario = (props) => {
         <p>{props.email}</p>
         <p>{props.children}</p>
         <p>{props.data.toString()}</p>
+        <button onClick={props.onRemove}>&times;</button>
       </div>
     </>
   );
 };
 
-export { Comentario, ComentarioDireto };
+export { Comentario};

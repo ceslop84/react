@@ -36,6 +36,12 @@ class App extends Component {
     });
   };
 
+  removerComentario = comentario => {
+    let lista = this.state.comentarios;
+    lista = lista.filter(c => c !== comentario)
+    this.setState({comentarios: lista})
+  }
+
   digitacao = (evento) => {
     const { name, value } = evento.target;
     this.setState({ novoComentario: { ...this.state.novoComentario, [name]: value } });
@@ -47,7 +53,12 @@ class App extends Component {
         <h1>Meu projeto</h1>
 
         {this.state.comentarios.map((comentario, indice) => (
-          <Comentario key={indice} nome={comentario.nome} email={comentario.email} data={comentario.data}>
+          <Comentario 
+          key={indice} 
+          nome={comentario.nome} 
+          email={comentario.email} 
+          data={comentario.data}
+          onRemove={this.removerComentario.bind(this, comentario)}>
             {comentario.mensagem}
           </Comentario>
         ))}
